@@ -1,18 +1,33 @@
 ---
 title: "QML 2026 Data analysis report"
-author: "GROUP NUMBER"
+author: "GROUP 14"
 date: last-modified
 format:
   html: default
   pdf: default
+bibliography: references.bib
 ---
 
 |                     |                                                 |
 |---------------------|-------------------------------------------------|
 | Group Project title | THE PROJECT TITLE                               |
-| Group members       | MEMBER 1, MEMBER 2, MEMBER 3 (use EXAM NUMBERS) |
+| Group members       | B314362, B314362 |
 
 ## Background
+
+```{r}
+#| label: setup
+#| message: false
+#| warning: false
+
+library(tidyverse)
+theme_set(theme_light())
+library(brms)
+library(bayesplot)
+library(posterior)
+library(ggdist)
+library(tidybayes)
+```
 
 - *Instructions are given in italics. You should remove all instructions before submitting*.
 
@@ -44,9 +59,16 @@ The Compendium is structured thus: ...
 
 ```{r}
 #| label: read-data
+#| message: false
 
-# Example code: delete
-1 + 1
+COP <- read_csv("data/data_anonymized/English_anon.csv") |>
+  mutate(language = "English")
+suff_pref_ki <- read_csv("data/data_anonymized/Kiitharaka_anon.csv") |>
+  mutate(language = "Kiitharaka")
+
+suff_pref <- bind_rows(suff_pref_en, suff_pref_ki) |> 
+  filter(trial_type == "post-pre")
+
 
 ```
 
